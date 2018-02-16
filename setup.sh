@@ -19,7 +19,6 @@ output_file="output.log"
 
 function main() {
 
-    sudo apt-get update
     sudo apt-get -y upgrade
 
     # Run setup functions
