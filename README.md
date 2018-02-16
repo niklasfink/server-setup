@@ -24,7 +24,7 @@ Clone this repository into your home directory:
 
 ```bash
 cd ~
-git clone https://github.com/jasonheecs/ubuntu-server-setup.git
+git clone https://github.com/niklasfink/server-setup.git
 ```
 
 Run the setup script
