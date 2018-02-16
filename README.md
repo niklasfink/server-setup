@@ -33,7 +33,7 @@ Run the setup script
 username="user"
 sshKey=""
 timezone="Europe/Berlin"
-cd ubuntu-server-setup
+cd server-setup
 bash setup.sh
 ```
 
