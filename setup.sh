@@ -23,7 +23,7 @@ function main() {
     sudo apt-get -y upgrade
 
     # Run setup functions
-    trap cleanup EXIT SIGHUP SIGINT SIGTERM
+    # trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
     addUserAccount "${username}"
 
