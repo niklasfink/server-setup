@@ -18,16 +18,15 @@ includeDependencies
 output_file="output.log"
 
 function main() {
-    read -rp "Enter the username of the new user account:" username
 
-    promptForPassword
+    sudo apt-get update
+    sudo apt-get -y upgrade
 
     # Run setup functions
     trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-    addUserAccount "${username}" "${password}"
+    addUserAccount "${username}"
 
-    read -rp $'Paste in the public SSH key for the new user:\n' sshKey
     echo 'Running setup script...'
     logTimestamp "${output_file}"
 
@@ -73,37 +72,18 @@ function cleanup() {
 function logTimestamp() {
     local filename=${1}
     {
-        echo "===================" 
+        echo "==================="
         echo "Log generated on $(date)"
         echo "==================="
     } >>"${filename}" 2>&1
 }
 
 function setupTimezone() {
-    echo -ne "Enter the timezone for the server (Default is 'Asia/Singapore'):\n" >&3
-    read -r timezone
     if [ -z "${timezone}" ]; then
-        timezone="Asia/Singapore"
+        timezone="Europe/Berlin"
     fi
     setTimezone "${timezone}"
     echo "Timezone is set to $(cat /etc/timezone)" >&3
-}
-
-# Keep prompting for the password and password confirmation
-function promptForPassword() {
-   PASSWORDS_MATCH=0
-   while [ "${PASSWORDS_MATCH}" -eq "0" ]; do
-       read -s -rp "Enter new UNIX password:" password
-       printf "\n"
-       read -s -rp "Retype new UNIX password:" password_confirmation
-       printf "\n"
-
-       if [[ "${password}" != "${password_confirmation}" ]]; then
-           echo "Passwords do not match! Please try again."
-       else
-           PASSWORDS_MATCH=1
-       fi
-   done 
 }
 
 main

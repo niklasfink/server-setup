@@ -7,16 +7,9 @@
 #   Flag to determine if user account is added silently. (With / Without GECOS prompt)
 function addUserAccount() {
     local username=${1}
-    local password=${2}
-    local silent_mode=${3}
 
-    if [[ ${silent_mode} == "true" ]]; then
-        sudo adduser --disabled-password --gecos '' "${username}"
-    else
-        sudo adduser --disabled-password "${username}"
-    fi
+    sudo adduser --disabled-password --gecos '' "${username}"
 
-    echo "${username}:${password}" | sudo chpasswd
     sudo usermod -aG sudo "${username}"
 }
 
@@ -114,7 +107,6 @@ function setTimezone() {
 
 # Configure Network Time Protocol
 function configureNTP() {
-    sudo apt-get update
     sudo apt-get --assume-yes install ntp
 }
 
@@ -122,7 +114,7 @@ function configureNTP() {
 function getPhysicalMemory() {
     local phymem
     phymem="$(free -g|awk '/^Mem:/{print $2}')"
-    
+
     if [[ ${phymem} == '0' ]]; then
         echo 1
     else
