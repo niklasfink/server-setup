@@ -56,6 +56,8 @@ function main() {
 function beautifyBash() {
     execAsUser "${username}" "echo force_color_prompt=yes | tee -a ~/.bashrc"
     execAsUser "${username}" "echo \"PS1='\[\033[1;36m\]\u\[\033[1;31m\]@\[\033[1;32m\]\h:\[\033[1;35m\]\w\[\033[1;31m\]\$\[\033[0m\] '\" | tee -a ~/.bashrc"
+    # bash histroy autosave:
+    execAsUser "${username}" "echo \"export PROMPT_COMMAND='history -a'\" | tee -a ~/.bashrc"
 }
 
 function setupSwap() {
