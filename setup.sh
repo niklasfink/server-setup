@@ -62,10 +62,10 @@ function beautifyBash() {
 
 function setupSwap() {
     if [ $(free | awk '/^Swap:/ {exit !$2}') ]; then
-        echo "Already have swap." >&3
-    else
         createSwap
         mountSwap
+    else
+        echo "Already have swap." >&3
     fi
     tweakSwapSettings "10" "50"
     saveSwapSettings "10" "50"
