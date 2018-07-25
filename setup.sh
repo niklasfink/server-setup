@@ -19,7 +19,11 @@ output_file="output.log"
 
 function main() {
 
+    sudo apt-get -y update
     sudo apt-get -y upgrade
+    
+    #Fail2Ban installation
+    sudo apt-get -y install fail2ban
 
     # Run setup functions
     # trap cleanup EXIT SIGHUP SIGINT SIGTERM
